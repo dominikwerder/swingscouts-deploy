@@ -5,10 +5,9 @@ import time
 from pathlib import Path
 import re
 import datetime
-import locale
 
-
-locale.setlocale(locale.LC_TIME, "de_DE")
+# import locale
+# locale.setlocale(locale.LC_TIME, "de_DE")
 
 
 def extract_yaml(path):

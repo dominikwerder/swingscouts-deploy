@@ -44,11 +44,13 @@ jobs:
         run: python --version
       - name: Test pip
         run: python -m pip install --user requests
-      - name: Test rsync
-        run: rsync --version
-      - name: pwd
-        run: pwd
-      - name: ls -l
-        run: ls -l
-      - name: find
-        run: find
+      # - name: Test rsync
+      #   run: rsync --version
+      # - name: pwd
+      #   run: pwd
+      # - name: ls -l
+      #   run: ls -l
+      # - name: find
+      #   run: find
+      - name: Build website
+        run: python swingscouts-deploy/lib/build.py

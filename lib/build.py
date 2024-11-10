@@ -1,13 +1,17 @@
 import os
 import yaml
-import pathlib
 import time
 from pathlib import Path
 import re
 import datetime
 
-# import locale
-# locale.setlocale(locale.LC_TIME, "de_DE")
+
+def content_base_dir():
+    return Path("swingscouts-website")
+
+
+def output_base_dir():
+    return Path("output")
 
 
 def extract_yaml(path):
@@ -30,7 +34,7 @@ def extract_yaml(path):
 
 def read_events():
     events = []
-    d0 = Path("content/events")
+    d0 = content_base_dir().joinpath("content/events")
     a = os.listdir(d0)
     for e in a:
         m = re.match("\\d{4}-\\d{2}-\\d{2}--\\d{2}:\\d{2}--", e)
@@ -71,10 +75,10 @@ def event_to_html(ev):
 
 
 def build_lessons():
-    template = open("pub/tmpl-page.html", "rt").read()
-    inner = open("pub/kurse-inner.html", "rt").read()
+    template = open(content_base_dir().joinpath("templates/page.html"), "rt").read()
+    inner = open(content_base_dir().joinpath("kurse.html"), "rt").read()
     s = template.replace("PAGE_CONTENT", inner)
-    open("pub/kurse.html", "wt").write(s)
+    open(output_base_dir().joinpath("kurse.html"), "wt").write(s)
 
 
 def build_home():
@@ -84,10 +88,10 @@ def build_home():
     for ev in events:
         s = event_to_html(ev)
         htmls.append(s)
-    template = open("pub/tmpl-page.html", "rt").read()
+    template = open(content_base_dir().joinpath("templates/page.html"), "rt").read()
     html = """<div class="grid-tiles">""" + "".join(htmls) + "</div>"
     s = template.replace("PAGE_CONTENT", html)
-    open("pub/index.html", "wt").write(s)
+    open(output_base_dir().joinpath("index.html"), "wt").write(s)
 
 
 def build():

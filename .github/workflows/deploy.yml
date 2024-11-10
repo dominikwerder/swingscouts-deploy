@@ -1,0 +1,45 @@
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: Log level
+        type: choice
+        required: false
+        default: warning
+        options:
+          - info
+          - warning
+          - debug
+      print_tags:
+        description: True to print to stdout
+        type: boolean
+        required: true
+      tags:
+        description: Test scenario tags
+        required: false
+        type: string
+      environment:
+        description: Environment to run tests against
+        type: environment
+        required: false
+
+jobs:
+  discover_tools:
+    runs-on: ubuntu-latest
+    # if:  ${{ inputs.print_tags }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: dominikwerder/swingscouts-website
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Show python
+        run: python --version
+      - name: Test pip
+        run: python -m pip install --user requests
+      - name: Test rsync
+        run: rsync --version
+      - name: Run build
+        run: python lib/build.py

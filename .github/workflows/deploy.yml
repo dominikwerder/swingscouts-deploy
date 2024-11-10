@@ -29,9 +29,12 @@ jobs:
     # if:  ${{ inputs.print_tags }}
     steps:
       - uses: actions/checkout@v4
+          repository: dominikwerder/swingscouts-deploy
+          path: swingscouts-deploy
       - uses: actions/checkout@v4
         with:
           repository: dominikwerder/swingscouts-website
+          path: swingscouts-website
       - name: Setup python
         uses: actions/setup-python@v5
         with:

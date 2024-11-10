@@ -29,6 +29,7 @@ jobs:
     # if:  ${{ inputs.print_tags }}
     steps:
       - uses: actions/checkout@v4
+        with:
           repository: dominikwerder/swingscouts-deploy
           path: swingscouts-deploy
       - uses: actions/checkout@v4

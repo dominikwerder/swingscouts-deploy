@@ -34,7 +34,7 @@ def extract_yaml(path):
 
 def read_events():
     events = []
-    d0 = content_base_dir().joinpath("content/events")
+    d0 = content_base_dir().joinpath("events")
     a = os.listdir(d0)
     for e in a:
         m = re.match("\\d{4}-\\d{2}-\\d{2}--\\d{2}:\\d{2}--", e)

@@ -14,6 +14,18 @@ def output_base_dir():
     return Path("output")
 
 
+def build_base_files():
+    buf = open(content_base_dir().joinpath("templates/css/main.css"), "rb").read()
+    open(output_base_dir().joinpath("main.css"), "wb").write(buf)
+    buf = open(content_base_dir().joinpath("templates/logo-dancers.svg"), "rb").read()
+    open(output_base_dir().joinpath("logo-dancers.svg"), "wb").write(buf)
+
+
+def copy_font(name):
+    buf = open(content_base_dir().joinpath("fonts").joinpath(name), "rb").read()
+    open(output_base_dir().joinpath(name), "wb").write(buf)
+
+
 def extract_yaml(path):
     with open(path, "rt") as finp:
         indoc = False
@@ -95,6 +107,19 @@ def build_home():
 
 
 def build():
+    build_base_files()
+    fonts = [
+        "blanch_caps_inline-webfont.woff",
+        "blanch_caps-webfont.woff",
+        "blanch_condensed_inline-webfont.woff",
+        "blanch_condensed-webfont.woff",
+        "fa-brands-400.woff2",
+        "fa-solid-900.woff2",
+        "Noto-latin-ext-o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5aDdu2ui.woff2",
+        "Noto-latin-o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a7duw.woff2",
+    ]
+    for e in fonts:
+        copy_font(e)
     build_home()
     build_lessons()
 
